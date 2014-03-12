@@ -16,7 +16,7 @@
 <div id='notes'>
 	<div><b>Notes for developers:</b></div>
 	<br/>
-	<div>This example is to test a tracking id when your user doesn't have the app installed and you need to pass some information to it after the 1º instalation. Example: When you advertise you need to know who is generating more downloads.</div>
+	<div>This example is to test a tracking id when your user doesn't have the app installed and you need to pass some information to it after the 1st instalation. Example: When you advertise you need to know who is generating more downloads.</div>
 	<br/>
 	<div><b>The behaviour in android is different than iphone so we have to serve different scripts according to each platform:</b> </div>
 	<ul>
