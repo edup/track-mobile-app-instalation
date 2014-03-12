@@ -1,0 +1,9 @@
+{
+    "name": "trackingId-example",
+    "version": "0.0.1",
+    "main": "web-server.js",
+    "dependencies": {
+        "express": "~3.3.4",
+        "muzzley-client": "latest"
+    }
+}

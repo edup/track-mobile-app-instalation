@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<meta id='refreshMeta' http-equiv="refresh" content="3"/>
+<script src='config.js'></script>
+<script src="http://10.10.130.90:50000/appenable.js"></script>
+
+<script>
+	var trackingId = getParameterByName("trackingId");
+
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
+	//init
+	if (typeof app_enabled != "undefined" && app_enabled==true) {
+		window.location.href = "http://10.10.130.90:50000/pixel.png?trackingId="+trackingId;
+	}
+	
+</script>
+
+</head>
+
+<body id='output'>
+&nbsp;
+</body>
+
+</html>

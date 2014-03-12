@@ -1,0 +1,132 @@
+<html>
+<head>
+
+	<meta charset="utf-8" />  
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<title>Example of Tracking ID when installing mobile applications</title>  
+	<style>
+		#output {
+			background-color: #ccc;
+		}
+
+		#notes{
+			margin-top: 20px;
+			background-color: #333;
+			padding: 10px;
+			font-size: 12px;
+			border: dashed 1px;
+			color: #fff;
+		}
+
+		#trackingId {
+			color: #F00;
+		}
+
+	</style>
+
+	<script language="javascript" type="text/javascript">
+	 	var output;
+		var trackingId = getUniqueTrackingId();
+
+		function getUniqueTrackingId() {
+		    //This is only for testing purposes
+		    //You should get this tracking id from your webserver/tracking-id manager
+		    return "id" + Math.random().toString(16).slice(2);
+		}
+
+		//Android configuration
+		var wsUri = "ws://10.10.130.90:50001/";
+		//iPhone configuration
+		var checkerSrc = "checker.html?trackingId=" + trackingId;
+
+		function initMain() {
+			output = document.getElementById("output");
+			if (typeof init =="function") init();
+		}
+
+		var isMobile = {
+		    Android: function() {
+		        return navigator.userAgent.match(/Android/i) ? true : false;
+		    },
+		    BlackBerry: function() {
+		        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+		    },
+		    iOS: function() {
+		        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+		    },
+		    Windows: function() {
+		        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+		    },
+		    any: function() {
+		        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+		    }
+		};
+
+		function addScript(name) {
+			var head= document.getElementsByTagName('head')[0];
+			var script= document.createElement('script');
+			script.type= 'text/javascript';
+			script.src= name;
+			head.appendChild(script);
+		}
+
+		window.addEventListener("load", initMain, false);
+	</script>
+
+	<!-- These scripts are needed for android-->
+	<script src='config.js'></script>
+	<script src="http://cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
+
+	<script language="javascript" type="text/javascript">
+		//Loading scripts according to the platform
+		var head = document.getElementById("head");
+		if( isMobile.iOS() ) {
+			addScript('iphone.js');
+		}else {
+			addScript('android.js');
+		}
+	</script>
+
+
+	</script>	
+
+</head>
+
+<body id='body'>
+
+<h1>Mobile instalation TrackingId Test</h1>  
+
+<div>The problem that you solve with this is when you're user doesn't have the app installed and you would like to track from each source he/she installs from.</div>
+<div>In my case i wanted to take an action after the user installs the app and that action was dependent of the trackingId</div>
+
+<ul>
+	<li>1. You should open this page on your smartphone</li>  
+	<li>2. This is the trackingId that will appear in your mobile <span id='trackingId'></span> </li>
+	<li>3. You can now install the app on your smartphone</li>  
+</ul>
+
+<div id="output"></div> 
+
+<br/>
+
+<div id='notes'>
+	<div><b>Notes for developers:</b></div>
+	<br/>
+	<div>This example is to test a tracking id when your user doesn't have the app installed and you need to pass some information to it after the 1º instalation. Example: When you advertise you need to know who is generating more downloads.</div>
+	<br/>
+	<div><b>The behaviour in android is different than iphone so we have to serve different scripts according to each platform:</b> </div>
+	<ul>
+		<li>
+			<p>android.js</p> 
+			<p>This example only works for browsers with websocket support. If your browser doesn't support it you should implement a long pooling solution in your android/ios app too. Though, in that case, the solution is exactly the same but with long pooling.</p>
+		</li>
+		<li>
+			<p>iphone.js</p> 
+			<p>This approach should work in any iphone</p> 
+		</li>
+	</ul>
+</div>
+
+</body>
+
+</html>
